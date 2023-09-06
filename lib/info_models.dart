@@ -1,5 +1,4 @@
 import 'package:isar/isar.dart';
-export 'package:tokuwari/media/providers/providers.dart';
 
 part 'info_models.g.dart';
 
