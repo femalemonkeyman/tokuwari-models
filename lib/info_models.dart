@@ -123,4 +123,10 @@ class Source {
     required this.subtitles,
     this.headers,
   });
+
+  void clear() {
+    qualities.clear();
+    subtitles.clear();
+    headers?.clear();
+  }
 }
