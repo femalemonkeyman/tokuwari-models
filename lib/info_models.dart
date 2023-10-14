@@ -10,9 +10,9 @@ typedef Anime = Future<Source>;
 
 @collection
 class AniData {
-  final Id id = Isar.autoIncrement;
   @Index()
   final String type;
+  @id
   final String mediaId;
   final int? malid;
   final String title;
@@ -55,10 +55,10 @@ class AniData {
 
 @collection
 class NovData {
-  final Id id = Isar.autoIncrement;
   final String type;
   final String title;
   final String image;
+  @id
   final String path;
   const NovData({
     required this.type,
@@ -70,7 +70,8 @@ class NovData {
 
 @collection
 class MediaProv {
-  final Id id = Isar.autoIncrement;
+  late final String id = "$provider/$provId";
+  @index
   final String provider;
   final String provId;
   final String title;
