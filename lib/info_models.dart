@@ -22,6 +22,15 @@ class AniData {
   final String score;
   final String count;
   final List<String> tags;
+  @ignore
+  final List<MediaProv> mediaProv = [];
+
+  /// Whether the media is completed
+  bool consumed = false;
+  int lastMedia = 0;
+
+  ///The last known position of the media after consumption has started
+  String? position;
 
   AniData({
     required this.type,
@@ -68,10 +77,8 @@ class NovData {
   });
 }
 
-@collection
 class MediaProv {
   late final String id = "$provider/$provId";
-  @index
   final String provider;
   final String provId;
   final String title;
@@ -82,19 +89,12 @@ class MediaProv {
   ///the widget is built
   final Call? call;
 
-  /// Whether the media is completed
-  bool consumed;
-
-  ///The last known position of the media after consumption has started
-  String? position;
-
   MediaProv({
     required this.provider,
     required this.provId,
     required this.title,
     required this.number,
     this.call,
-    this.consumed = false,
   });
 }
 
