@@ -11,6 +11,7 @@ typedef Anime = Future<Source>;
 @collection
 class AniData {
   final Id id = Isar.autoIncrement;
+  @Index()
   final String type;
   final String mediaId;
   final int? malid;
@@ -21,8 +22,6 @@ class AniData {
   final String score;
   final String count;
   final List<String> tags;
-  @ignore
-  bool dub = false;
 
   AniData({
     required this.type,
@@ -40,8 +39,7 @@ class AniData {
   AniData.fromJson(Map<String, dynamic> json, this.type)
       : malid = json['idMal'],
         mediaId = json['id'].toString(),
-        description = (json['description'] ?? "")
-            .replaceAll(RegExp(r'<[^>]*>|&[^;]+;'), ' '),
+        description = (json['description'] ?? "").replaceAll(RegExp(r'<[^>]*>|&[^;]+;'), ' '),
         status = json['status'].toString(),
         title = json['title']['romaji'].toString(),
         image = json['coverImage']['extraLarge'],
@@ -123,10 +121,4 @@ class Source {
     required this.subtitles,
     this.headers,
   });
-
-  void clear() {
-    qualities.clear();
-    subtitles.clear();
-    headers?.clear();
-  }
 }
