@@ -7,6 +7,7 @@ const String malsync = 'https://api.malsync.moe/mal/anime';
 typedef Provider = Future<List<MediaProv>>;
 typedef Call<T> = Future<T> Function();
 typedef Anime = Future<Source>;
+typedef Manga = Future<Chapter>;
 
 @collection
 class AniData {
@@ -22,15 +23,11 @@ class AniData {
   final String score;
   final String count;
   final List<String> tags;
+
+  /// The list of Episodes or chapters found for this media
   @ignore
   final List<MediaProv> mediaProv = [];
-
-  /// Whether the media is completed
-  bool consumed = false;
   int lastMedia = 0;
-
-  ///The last known position of the media after consumption has started
-  String? position;
 
   AniData({
     required this.type,
@@ -63,7 +60,20 @@ class AniData {
 }
 
 @collection
+class History {
+  /// Id should be the mediaId from an [AniData] object which is the id from anilist
+  final String id;
+  final String type;
+
+  /// Should be a [Duration] for keeping the position of a video or the page
+  final Map<String, dynamic> positions = {};
+
+  History({required this.id, required this.type});
+}
+
+@collection
 class NovData {
+  @index
   final String type;
   final String title;
   final String image;
@@ -122,4 +132,14 @@ class Source {
     required this.subtitles,
     this.headers,
   });
+}
+
+class Chapter {
+  /// Each page should be a link to the image
+  final List<String> pages;
+
+  /// Any headers you might need for the request
+  final Map<String, String>? headers;
+
+  const Chapter({required this.pages, this.headers});
 }
