@@ -2,7 +2,7 @@ import 'package:isar/isar.dart';
 
 part 'info_models.g.dart';
 
-const String malsync = 'https://api.malsync.moe/mal/anime';
+const String anisync = 'https://api.malsync.moe/mal/anime';
 
 typedef Provider = Future<List<MediaProv>>;
 typedef Call<T> = Future<T> Function();
